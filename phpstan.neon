@@ -1,0 +1,13 @@
+parameters:
+  reportUnmatchedIgnoredErrors: false
+  level: 8
+  ignoreErrors:
+    - '#PHPDoc .*#'
+    - '#.*has no typehint specified.#'
+    - '#.*with no typehint specified.#'
+    - '#.*has no return typehint specified.#'
+  paths:
+    - src/KiltSdkPhp
+    - samples
+  scanDirectories:
+    - src/KiltSdkPhp

@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@kiltprotocol/sdk-js": "^0.30.0",
+    "util": "^0.12.5"
+  }
+}
