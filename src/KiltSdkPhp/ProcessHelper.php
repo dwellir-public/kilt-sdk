@@ -19,11 +19,13 @@ class ProcessHelper
         $this->process = new Process([ $pwd . '/../../vendor/bin/node', $pwd . '/../SdkJsWrapper/SdkJsWrapper.js']);
         $this->process->setInput($this->input);
         $this->process->start();
+        $this->stderr = fopen('php://stderr', 'w');
     }
 
     private InputStream $input;
     private Process $process;
     private int $counter = 1;
+    private $stderr;
 
     public function transmit(BaseRequest $request): BaseResponse
     {
@@ -35,12 +37,12 @@ class ProcessHelper
 
         $this->process->waitUntil(function ($type, $buffer) {
             if (Process::ERR === $type) {
-                fwrite(STDERR, 'ERR > ' . $buffer);
+                fwrite($this->stderr, 'ERR > ' . $buffer);
                 return false;
             }
             $decoded = base64_decode($buffer, true);
             if ($decoded === false) {
-                fwrite(STDERR, 'ERR > ' . $buffer);
+                fwrite($this->stderr, 'ERR > ' . $buffer);
                 return false;
             }
 
